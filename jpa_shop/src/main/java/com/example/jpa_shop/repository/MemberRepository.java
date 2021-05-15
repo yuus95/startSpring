@@ -1,6 +1,7 @@
 package com.example.jpa_shop.repository;
 
 import com.example.jpa_shop.domain.Member;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -8,13 +9,19 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
+@RequiredArgsConstructor
 public class MemberRepository {
 
-    @PersistenceContext
-    private EntityManager em;
+
+    //@PersistenceContext -- >  다른방법으로 인잭션 하는방법법
+    private final EntityManager em;
+
+
 
     public void save(Member member){
         em.persist(member);
+        //persist한다고 db에 insert문이 바로나가지않는다
+        // commit이 될 때 insert문이 나감
     }
 
     public Member findOne(Long id){
