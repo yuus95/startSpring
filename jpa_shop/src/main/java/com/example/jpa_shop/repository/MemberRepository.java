@@ -8,12 +8,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+//쿼리문 작성하는 곳 같음 mapper같은역할
 @Repository
 @RequiredArgsConstructor
 public class MemberRepository {
 
 
-    //@PersistenceContext -- >  다른방법으로 인잭션 하는방법법
+    //@PersistenceContext -- >  다른방법으로 인잭션 하는방법
     private final EntityManager em;
 
 
