@@ -52,7 +52,7 @@ public class MemberServiceTest {
 
             //then
             // em.flush();
-            //asserEquals(a,b) 객체 a와 b의 값이 같은지 확인
+            //assertEquals(a,b) 객체 a와 b의 값이 같은지 확인
             assertEquals(member,memberRepository.findOne(savedId));
     }
 

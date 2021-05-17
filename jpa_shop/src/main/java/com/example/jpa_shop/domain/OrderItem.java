@@ -2,7 +2,9 @@ package com.example.jpa_shop.domain;
 
 
 import com.example.jpa_shop.domain.Item.Item;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.util.Lazy;
 
@@ -12,6 +14,7 @@ import static javax.persistence.FetchType.*;
 
 @Entity
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem {
     @Id @GeneratedValue
     @Column(name = "order_item_id")
@@ -27,6 +30,13 @@ public class OrderItem {
 
     private int orderPrice; //주문 가격
     private int count;//주문 수량
+
+
+    /**
+     * @NoArgsConstructor(access = AccessLevel.PROTECTED)  어노테이션과 동일
+     */
+//    protected OrderItem(){
+//    }
 
     //== 생성 메서드 (정적 팩토리 메서드 - 객체 생성의 역할을 하는 클래스 메서드)==//
     public static OrderItem createOrderItem(Item item,int orderPrice, int count){

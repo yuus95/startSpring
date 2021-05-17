@@ -1,6 +1,8 @@
 package com.example.jpa_shop.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -13,6 +15,7 @@ import static javax.persistence.FetchType.*;
 @Entity
 @Table(name = "orders")
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 
     @Id @GeneratedValue
@@ -26,6 +29,8 @@ public class Order {
     @JoinColumn(name="member_id")
     private Member member;
 
+
+    // order를 persist하면 order안에 있는 컬렉션들을 다 persist해준다다
     @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
@@ -100,3 +105,4 @@ public class Order {
         return totalPrice;
     }
 }
+
