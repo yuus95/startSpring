@@ -6,6 +6,7 @@ import com.example.jpa_shop.domain.Item.Item;
 import com.example.jpa_shop.domain.Member;
 import com.example.jpa_shop.domain.Order;
 import com.example.jpa_shop.domain.OrderStatus;
+
 import com.example.jpa_shop.exception.NotEnoughStockException;
 import com.example.jpa_shop.repository.OrderRepository;
 import org.junit.jupiter.api.Test;
@@ -35,7 +36,6 @@ class OrderSerivceTest {
 
         Book book = createBook("시골 JPA", 10000, 10);
 
-        em.persist(book);
 
         int orderCount  = 2;
         //when
@@ -56,6 +56,7 @@ class OrderSerivceTest {
         book.setName(name);
         book.setPrice(price);
         book.setStockQuantity(stockQuantity);
+        em.persist(book);
         return book;
     }
 
@@ -71,10 +72,20 @@ class OrderSerivceTest {
     @Test
     public void 주문취소() throws Exception{
         //given
+        Member member = createMember();
+        Book item = createBook("시골JPA", 10000, 10);
+
+        int orderCount = 2;
+        Long orderId = orderSerivce.order(member.getId(), item.getId(), orderCount);
 
         //when
+        orderSerivce.cancelOrder(orderId);
+
 
         //then
+        Order getOrder = orderRepository.findOne(orderId);
+        assertEquals(OrderStatus.CANCEL,getOrder.getStatus(),"주문 취소시 상태는 Cancel이다");
+        assertEquals(10,item.getStockQuantity(),"주문이 취소된 상품은 그만큼 재고가 증가해야한다");
     }
 
 
@@ -84,15 +95,14 @@ class OrderSerivceTest {
         //given
         Member member = createMember();
         Book book = createBook("시골 JPA", 10000, 10);
-
-        int orderCount = 8;
+        int orderCount = 11;
 
         //when
 
         //then
-        NotEnoughStockException ex = assertThrows(NotEnoughStockException.class, () -> {
-            orderSerivce.order(member.getId(), book.getId(), orderCount);
-        });
-        assertEquals(ex.getMessage(), "need more Stock");
+      final  NotEnoughStockException ex = assertThrows(NotEnoughStockException.class, () -> orderSerivce.order(member.getId(), book.getId(),orderCount));
+        assertEquals("need more Stock",ex.getMessage());
+     }
     }
-}
+
+//    public Long order(Long memberId, long itemId,int count){

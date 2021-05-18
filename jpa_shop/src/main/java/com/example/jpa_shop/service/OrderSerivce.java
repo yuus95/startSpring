@@ -32,7 +32,7 @@ public class OrderSerivce {
     /**
      * 주문
      */
-     @Transactional
+    @Transactional
     public Long order(Long memberId, long itemId,int count){
 
          //엔티티 조회
