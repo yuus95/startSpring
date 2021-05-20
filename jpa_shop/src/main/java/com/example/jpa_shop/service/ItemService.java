@@ -1,6 +1,7 @@
 package com.example.jpa_shop.service;
 
 
+import com.example.jpa_shop.domain.Item.Book;
 import com.example.jpa_shop.domain.Item.Item;
 import com.example.jpa_shop.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,17 @@ public class ItemService {
     @Transactional
     public void saveItem(Item item){
         itemRepository.save(item);
+    }
+
+
+    //변경감지 방법 findItem은 영속성 데이터이므로 save함수를 안불러도 저장이 가능
+    @Transactional
+    public void updateItem(Long itemId, String name, int price,int stockQuantity){
+        Item findItem = itemRepository.findOne(itemId);
+        findItem.setName(name);
+        findItem.setPrice(price);
+        findItem.setStockQuantity(stockQuantity);
+
     }
 
 
