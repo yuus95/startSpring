@@ -28,6 +28,7 @@ public class ItemService {
     //변경감지 방법 findItem은 영속성 데이터이므로 save함수를 안불러도 저장이 가능
     @Transactional
     public void updateItem(Long itemId, String name, int price,int stockQuantity){
+        //영속성 데이터 -> findItem
         Item findItem = itemRepository.findOne(itemId);
         findItem.setName(name);
         findItem.setPrice(price);
