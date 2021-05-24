@@ -6,6 +6,8 @@ import lombok.Setter;
 
 import javax.persistence.Embeddable;
 
+
+//  객체를 표현할 떄 공통적인 부분을  분리해서 클래스로 저장한 뒤, 테이블에 매핑할 때 사용
 @Embeddable
 @Getter
 public class Address {

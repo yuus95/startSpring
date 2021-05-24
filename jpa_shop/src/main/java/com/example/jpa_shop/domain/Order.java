@@ -30,7 +30,7 @@ public class Order {
     private Member member;
 
 
-    // order를 persist하면 order안에 있는 컬렉션들을 다 persist해준다다
+    // cascade--> order를 persist하면 order안에 있는 컬렉션들을 다 persist해준다다
     @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
