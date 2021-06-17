@@ -30,7 +30,7 @@ public class Order {
     private Member member;
 
 
-    // cascade--> order를 persist하면 order안에 있는 컬렉션들을 다 persist해준다다
+    // cascade--> order를 persist하면 order안에 있는 컬렉션들을 다 persist해준다
     @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
@@ -80,7 +80,6 @@ public class Order {
     /**
      * 주문취소
      */
-
     public void cancel() {
         if (delivery.getStatus() == DeliveryStatus.COMP) {
             throw new IllegalStateException("이미 배송완료된 상품은 취소가 불가능 합니다");
