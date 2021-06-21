@@ -19,9 +19,6 @@ import java.util.stream.Collectors;
 public class MemberApiController {
 //템플릿 컨트롤러랑 API컨트롤러 구분하기 --> 공동처리는 패키지 단위로 많이한다.
 
-
-
-
     private final MemberService memberService;
 
     //Get V1
@@ -45,6 +42,16 @@ public class MemberApiController {
         return new Result(collect);
     }
 
+
+//    @GetMapping("/api/yushin/members")
+//    public yushin_result member(){
+//        List<Member> members = memberService.findMembers();
+//
+//    }
+//
+//    static class yushin_result<T>{
+//
+//    }
 
 
 
@@ -125,7 +132,7 @@ public class MemberApiController {
 
     @Data
     static class CreateMemberRequest{
-        @NotEmpty //vaildation을 DTO에 할 수 있다.
+        @NotEmpty //validation을 DTO에 할 수 있다.
         private String name;
 
     }
