@@ -12,12 +12,12 @@ import java.util.List;
 
 
 /**
- * x To One
+ * x To One(ManyToOne, OneToOne)
  * Order
  * Order -> Member
  * Order -> Delivery
  */
-@RestController
+@RestController //주용도 - > Json형태로 객체 데이터를 반환
 @RequiredArgsConstructor
 public class OrderSimpleApliController {
 
@@ -28,10 +28,5 @@ public class OrderSimpleApliController {
         List<Order> all = orderRepository.findAllByString(new OrderSearch());
         return all;
 
-
-
-
     }
-
-
 }

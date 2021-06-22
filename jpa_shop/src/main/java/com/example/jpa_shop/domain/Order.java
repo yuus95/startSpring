@@ -25,6 +25,7 @@ public class Order {
 
     //연관관계 주인쪽에 JoinColumn 써주기!!
     // ~~ToOne  연관관계 지연로딩으로 설정 fetch = Lazy
+    // 프록시객체는 멤버생성자로 가져오는것이 아니라 ByteBuddyInterceptor() 함수를 이용해 가져온다.
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name="member_id")
     private Member member;
