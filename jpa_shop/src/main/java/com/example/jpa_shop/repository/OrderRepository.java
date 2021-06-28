@@ -3,6 +3,7 @@ package com.example.jpa_shop.repository;
 
 import com.example.jpa_shop.domain.Member;
 import com.example.jpa_shop.domain.Order;
+import com.example.jpa_shop.repository.order.simplerquery.OrderSimpleQueryDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -102,4 +103,7 @@ public class OrderRepository {
                         "join fetch o.delivery d",Order.class
         ).getResultList();
     }
+
+
+
 }

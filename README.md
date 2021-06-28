@@ -13,7 +13,7 @@ Ctrl + alt + E :  최근에 봤던 클래스 목록 보기
 
 Ctrl + Shift + alt + T : 리펙토링 
 
-Ctrl 연속 2번 :멀티커서
+Ctrl 연속 2번 + 방향키:멀티커서
 
 
 ---
