@@ -20,5 +20,4 @@ public class OrderSimpleQueryRepository {
                         " join o.delivery d", OrderSimpleQueryDto.class)
                 .getResultList();
     }
-
 }

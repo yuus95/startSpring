@@ -5,6 +5,7 @@ import com.example.jpa_shop.domain.Member;
 import com.example.jpa_shop.domain.Order;
 import com.example.jpa_shop.repository.order.simplerquery.OrderSimpleQueryDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -105,5 +106,16 @@ public class OrderRepository {
     }
 
 
+    public List<Order> findAllWithItem() {
+        return em.createQuery(
+                // mysql dinstinct 는 아예 모든 컬럼이 다같은값일 경우만 삭제
+                // jpa - distinct는 애플리케이션 계층에 들어오는 데이터에 한해서 값은 id갑승ㄹ 가진 데이터들의 중복을 없애준다
+                "select distinct o from Order o " +
+                " join fetch o.member m " +
+                " join fetch o.delivery d" +
+                " join fetch o.orderItems oi" +
+                " join fetch oi.item i ", Order.class)
+                .getResultList();
 
+    }
 }
