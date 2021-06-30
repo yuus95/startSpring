@@ -16,7 +16,7 @@ public class initDb {
 
     private final InitService initService;
 
-    @PostConstruct //객체으 초기화 부분, 객체가 생성된 후 별도의 초기화 작업을 위해 실행하는 메소드를 선언한다.
+    @PostConstruct //객체 초기화 부분, 객체가 생성된 후 별도의 초기화 작업을 위해 실행하는 메소드를 선언한다.
     public void init(){
         initService.dbInit1();
         initService.dbInit2();
@@ -71,7 +71,7 @@ public class initDb {
 
         public void dbInit2(){
             Member member = new Member();
-            member.setName("userA");
+            member.setName("userB");
             member.setAddress(new Address("부산","2","2"));
             em.persist(member);
 

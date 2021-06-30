@@ -11,6 +11,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
@@ -65,6 +66,24 @@ public class OrderApiController {
         return result;
     }
 
+
+    @GetMapping("/api/v3,1/orders")
+    public List<OrderDto> ordersV3_page(
+            @RequestParam(value =  "offset", defaultValue = "0") int offset,
+            @RequestParam(value =  "limit", defaultValue = "100") int limit
+    ){
+        List<Order> orders = orderRepository.findAllWithMemberDelivery(offset, limit);
+
+        List<OrderDto> result = orders.stream()
+                .map(o -> new OrderDto(o))
+                .collect(Collectors.toList());
+
+        return result;
+
+    }
+
+
+
     //DTO를 사용하여 데이터를 보낼떄는 엔티티에 대한 의존도를 완전히 뗴어내야된다.
             @Data
             static class OrderDto{
@@ -76,7 +95,7 @@ public class OrderApiController {
                 private Address address;
 
                 // DTO 안에 엔티티가 있으면 안된다. 매핑하는것도 안됨
-        private List<OrderItemDto> orderItems; // DTO로 바꿔서 사용해야한다.
+                private List<OrderItemDto> orderItems; // DTO로 바꿔서 사용해야한다.
 
 
 
@@ -108,7 +127,7 @@ public class OrderApiController {
 
 
         public OrderItemDto(OrderItem orderItem){
-            itemName = orderItem.getItem().getName();
+            itemName = orderItem.getItem().getName(); // 프록시 초기화
             orderPrice = orderItem.getItem().getPrice();
             count = orderItem.getCount();
 
