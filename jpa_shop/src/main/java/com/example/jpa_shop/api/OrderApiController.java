@@ -7,6 +7,8 @@ import com.example.jpa_shop.domain.OrderItem;
 import com.example.jpa_shop.domain.OrderStatus;
 import com.example.jpa_shop.repository.OrderRepository;
 import com.example.jpa_shop.repository.OrderSearch;
+import com.example.jpa_shop.repository.order.query.OrderQueryDto;
+import com.example.jpa_shop.repository.order.query.OrderQueryRepository;
 import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +25,7 @@ import java.util.stream.Collectors;
 public class OrderApiController {
 
     private final OrderRepository orderRepository;
-
+    private final OrderQueryRepository orderQueryRepository;
 
     // 엔티티 자체를 반환하기때문에 사용하면 안된다.
     @GetMapping("/api/v1/orders")
@@ -82,6 +84,26 @@ public class OrderApiController {
 
     }
 
+
+    /**
+     * JPA에서 DTO 직접 조회
+     */
+    @GetMapping("/api/v4/orders")
+    public List<OrderQueryDto> ordersV4(){
+        List<OrderQueryDto> result = orderQueryRepository.findOrderQueryDtos();
+
+        return result;
+
+    }
+
+
+    /**
+     * v4 에서나온 N+1 문제 해결
+     */
+    @GetMapping("/api/v5/orders")
+    public List<OrderQueryDto> ordersV5(){
+        return orderQueryRepository.findAllByDto_optimization();
+    }
 
 
     //DTO를 사용하여 데이터를 보낼떄는 엔티티에 대한 의존도를 완전히 뗴어내야된다.
